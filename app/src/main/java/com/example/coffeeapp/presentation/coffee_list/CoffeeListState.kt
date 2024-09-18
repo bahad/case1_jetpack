@@ -7,5 +7,7 @@ data class CoffeeListState(
     val filteredCoffees: List<CoffeeModel> = emptyList(),
     val isLoading: Boolean = false,
     val error: String = "",
-    val searchQuery: String = ""
+    val searchQuery: String = "",
+    val favoriteCoffees: Set<Int> = emptySet() // Store FavoriteId
+
 )

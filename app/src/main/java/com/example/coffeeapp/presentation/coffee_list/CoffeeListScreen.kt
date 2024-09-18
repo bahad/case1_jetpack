@@ -48,7 +48,7 @@ fun CoffeeListScreen(
         }
     ) { padding ->
 
-        Column(modifier = Modifier.padding(padding)) {
+        Column(modifier = Modifier.padding(padding).fillMaxSize()) {
 
             OutlinedTextField(
                 value = state.value.searchQuery,
@@ -93,9 +93,12 @@ fun CoffeeListScreen(
                             modifier = Modifier.fillMaxSize()
                         ) {
                             items(items = state.value.filteredCoffees, key = { it.id }) { coffee ->
+                                val isFav = state.value.favoriteCoffees.contains(coffee.id)
                                 CoffeeItem(
-                                    coffee,
-                                    navController,
+                                    coffee = coffee,
+                                    navController = navController,
+                                    isFavorite = isFav,
+                                    onFavoriteClick = { viewModel.onFavoriteToggle(it) },
                                     modifier = Modifier.animateItemPlacement(
                                         animationSpec = tween(
                                             durationMillis = 2000

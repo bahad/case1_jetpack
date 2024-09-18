@@ -2,6 +2,7 @@ package com.example.myapplication.presentation.coffee_list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.coffeeapp.domain.model.CoffeeModel
 import com.example.coffeeapp.domain.repository.CoffeeRepository
 import com.example.coffeeapp.util.Resource
 import kotlinx.coroutines.Job
@@ -75,5 +76,15 @@ class CoffeeListViewModel(
             }
         }
         _state.value = _state.value.copy(filteredCoffees = filtered)
+    }
+
+    fun onFavoriteToggle(coffeeModel: CoffeeModel) {
+        val currentFavorites = _state.value.favoriteCoffees.toMutableSet()
+        if (currentFavorites.contains(coffeeModel.id)) {
+            currentFavorites.remove(coffeeModel.id)
+        } else {
+            currentFavorites.add(coffeeModel.id)
+        }
+        _state.value = _state.value.copy(favoriteCoffees = currentFavorites)
     }
 }
